@@ -13,6 +13,10 @@ It allows to configure a product template with only one field.
    :alt: profile field on product
    :width: 600 px
 
+ .. figure:: product_profile/static/img/field.png
+   :alt: profile field on product
+   :width: 600 px
+
 **Main use case**: a lot of modules are installed (mrp, purchase, sale, pos)
 and products configuration becomes harder for end users: too many fields to take care of.
 
@@ -37,6 +41,9 @@ Configuration
      :alt: profile list
      :width: 600 px
 
+   .. figure:: product_profile/static/img/list.png
+     :width: 600 px
+
 2. To have more fields available to attach to this profile you must define
    these fields in the model 'product.profile' in your own module
    If the field name (and its type) is the same than those in 'product.template'
@@ -52,17 +59,13 @@ Configuration
 
       _inherit = 'product.profile'
 
-      def _get_types(self):
-          return [('product', 'Stockable Product'),
-                  ('consu', 'Consumable'),
-                  ('service', 'Service')]
-
       sale_ok = fields.Boolean(
           string='Can be Sold',
           help="Specify if the product can be selected in a sales order line.")
       purchase_ok = fields.Boolean(
           string='Can be Purchased')
       available_in_pos = fields.Boolean()
+      type = fields.Selection(selection_add=[('product', 'Stockable Product')])
 
 3. Second behavior: you might want to add a default behavior to these fields:
    in this case use prefix "profile_default\_" for your field name
